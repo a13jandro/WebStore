@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Web.Mvc;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+
+using System.Collections.Generic;
+
+using WebStore.Models.Data;
 
 namespace WebStore.Controllers
 {
@@ -10,20 +11,18 @@ namespace WebStore.Controllers
     {
         public ActionResult Index()
         {
-            return View();
-        }
+            using (StoreDbContext db = new StoreDbContext())
+            {
+                ProductCategory category = db.ProductCategories.First(x => x.Name == "Food");
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+                string output = "";
+                foreach (ProductCategory subcategory in category.Subcategories)
+                {
+                    output += subcategory.Name;
+                }
 
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
+                ViewBag.Output = output;
+            }
             return View();
         }
     }
