@@ -10,6 +10,7 @@ namespace WebStore.Models.Data
         public string Name { get; set; }
 
         public virtual List<ProductCategory> Subcategories { get; set; }
+        public int? SupecategoryId { get; set; }
         public virtual ProductCategory Supercategory { get; set; }
 
         public virtual List<Product> Products { get; set; }
